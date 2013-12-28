@@ -46,6 +46,20 @@ class PromotionController extends BaseController {
     									);
   }
 
+  public function insertPromotion() {
+  	$promotion = new Promotion;
+  	$promotion->kind = 'promotion';
+  	$promotion->topic = $_REQUEST['topicPromotion'];
+  	$promotion->start_date = $_REQUEST['startDatePromotion'];
+  	$promotion->end_date = $_REQUEST['endDatePromotion'];
+  	$promotion->place = $_REQUEST['placePromotion'];
+  	$promotion->images = $_REQUEST['imagesPromotion'];
+  	$promotion->description = $_REQUEST['descriptionPromotion'];
+  	$promotion->save();
+
+  	return Redirect::to('/promotion');
+  }
+
   public function insertCoupon() {
   	$insertFlag = true;
 
@@ -70,6 +84,14 @@ class PromotionController extends BaseController {
   										);
   }
 
+
+
+  public function getPromotionOrCouponDetail() {
+  	$id = $_REQUEST['editDealButton'];
+  	$coupon = Promotion::find($id);
+  	return $coupon;
+  }
+
   public function deletePromotionOrCoupon() {
   	$_id = $_REQUEST['deleteDealButton'];
   	$deal = Promotion::find($_id);
@@ -84,12 +106,56 @@ class PromotionController extends BaseController {
   	//$user = User::find(1);
   	//$user->email = 'john@foo.com';
   	//$user->save();
-  	$_id = $_REQUEST['editDealButton'];
+  	$_id = $_REQUEST['idForEditPromotion'];
+  	$topic = $_REQUEST['editTopicPromotion'];
+  	$start_date = $_REQUEST['editStartDatePromotion'];
+  	$end_date = $_REQUEST['editEndDatePromotion'];
+  	$place = $_REQUEST['editPlacePromotion'];
+  	$description = $_REQUEST['editDescriptionPromotion'];
 
+  	$promotion = Promotion::find($_id);
+  	$promotion->topic = $topic;
+  	$promotion->start_date = $start_date;
+  	$promotion->end_date = $end_date;
+  	$promotion->place = $place;
+  	$promotion->description = $description;
+  	$promotion->save();
+  	return Redirect::to('/promotion');
   }
 
   public function editCoupon() {
-  	$_id = $_REQUEST['editDealButton'];
+  	/*document.getElementById('editTopicCoupon').value = result.topic;
+    document.getElementById('editStartDateCoupon').value = result.start_date;
+    document.getElementById('editEndDateCoupon').value = result.end_date;
+    document.getElementById('editPlaceCoupon').value = result.place;
+    document.getElementById('editImagesCoupon').value = result.images;
+    document.getElementById('editNumberOfCouponCoupon').value = result.number_of_coupon;
+    document.getElementById('editDescriptionCoupon').value = result.description;*/
+  	$_id = $_REQUEST['idForEditCoupon'];
+  	$topic = $_REQUEST['editTopicCoupon'];
+  	$start_date = $_REQUEST['editStartDateCoupon'];
+  	$end_date = $_REQUEST['editEndDateCoupon'];
+  	$place = $_REQUEST['editPlaceCoupon'];
+  	//for images
+  	
+  	//end for images
+  	$number_of_coupon = $_REQUEST['editNumberOfCouponCoupon'];
+  	$description = $_REQUEST['editDescriptionCoupon'];
+
+  	$promotion = Promotion::find($_id);
+  	$promotion->topic = $topic;
+  	$promotion->start_date = $start_date;
+  	$promotion->end_date = $end_date;
+  	$promotion->place = $place;
+  	/*if(!isset($_REQUEST['editImagesCoupon'])) {
+  		$images = $_REQUEST['editImagesCoupon'];
+  		$promotion->images = $images;
+  	}*/
+  	
+  	$promotion->number_of_coupon = $number_of_coupon;
+  	$promotion->description = $description;
+  	$promotion->save();
+  	return Redirect::to('/promotion');
   }
 
   public function createBodyTable() {
@@ -111,15 +177,16 @@ class PromotionController extends BaseController {
                                 "</td>" .
                                 "<td>" .
                                 "<form>" .
-                                "<input type='hidden' name='editDealButton' id='editDealButton' value='" .
+                                "<button type='button' name='editDealButton' class='button small' value='" .
                                 $item->_id .
                                 "'>" .
-                                "<input type='submit' class='button small' value='Edit'>" .
+                                "Edit" .
+                                "</button>" .
                                 "</form>" .
                                 "</td>" .
                                 "<td>" .
                                 "<form action='promotion/deletePromotionOrCoupon' method='post'>" .
-                                "<input type='hidden' name='deleteDealButton' id='deleteDealButton' value='" .
+                                "<input type='hidden' name='deleteDealButton' value='" .
                                 $item->_id .
                                 "'>" .
                                 "<input type='submit' class='button small alert' value='Delete'>" .

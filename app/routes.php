@@ -26,5 +26,14 @@ Route::get('index', function() {
 
 Route::get('promotion', 'PromotionController@showPromotionAndCouponTable');
 
+Route::post('promotion/insertPromotion', 'PromotionController@insertPromotion');
+
 Route::post('promotion/insertCoupon', 'PromotionController@insertCoupon');
+
 Route::post('promotion/deletePromotionOrCoupon', 'PromotionController@deletePromotionOrCoupon');
+
+Route::get('promotion/getPromotionOrCouponDetail', 'PromotionController@getPromotionOrCouponDetail');
+
+Route::post('promotion/editPromotion', 'PromotionController@editPromotion');
+
+Route::post('promotion/editCoupon', 'PromotionController@editCoupon');

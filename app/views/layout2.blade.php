@@ -6,8 +6,19 @@
   	<title>Index Foundation</title>
   	{{HTML::style('foundation_css/css/normalize.css')}}
   	{{HTML::style('foundation_css/css/foundation.min.css')}}
+    {{HTML::script('foundation_css/js/jquery.js')}}
   	{{HTML::script('foundation_css/js/modernizr.js')}}
+
     {{HTML::script('css/index2.css')}}
+    <style type="text/css">
+    #topicPreviewPromotionHeader {
+      overflow-wrap: break-word;
+    }
+
+    #topicPreviewCouponHeader {
+      overflow-wrap: break-word;
+    }
+    </style>
   </head>
   <body>
   <!-- topbar -->
@@ -35,7 +46,6 @@
   <!-- End topbar-->
 
   @yield('content')
-  	{{HTML::script('foundation_css/js/jquery.js')}}
   	{{HTML::script('foundation_css/js/foundation.min.js')}}
   	<script>
   	  $(document).foundation();
@@ -44,9 +54,8 @@
                   if (insertFlag == true) {
                     $('#qrCodeModal').foundation('reveal', 'open', '#');
                   }
-                }
-
-                checkInsertFlag();
+      }
+      checkInsertFlag();
   	</script>
   </body>
 </html>
